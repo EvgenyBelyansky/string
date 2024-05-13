@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +14,7 @@ public class Main {
     }
 
     private static String validateDeviceAndYear(int deviceType, int year) {
-        int currentYear = 2015;
+        int currentYear = LocalDate.now().getYear();
         if (deviceType == 0 && year < currentYear) {
             return "Установите облегченную версию приложения для iOS по ссылке";
         } else if (deviceType == 0 && year >= currentYear) {
@@ -28,13 +29,18 @@ public class Main {
     }
 
     private static String  calculateDeliveryDistance(int distance) {
-        if (distance > 100) {
-            return "Wrong distance";
+        int days = 1;
+        if (distance <= 20) {
+           return  "Потребуется дней: " + days;
+        } else if (distance <= 60) {
+            days += 1;
+            return "Потребуется дней: " + days;
+        }else if (distance <= 100) {
+            days += 2;
+            return "Потребуется дней: " + days;
         } else {
-            int result = (int) Math.ceil((double) (distance - 20) / 40) + 1;
-            return "Потребуется дней: " + result;
+            return "Свыше 100 км доставки нет";
         }
-
     }
 
     public static void main(String[] args) {
@@ -45,13 +51,13 @@ public class Main {
         System.out.println("\n\nЗадача № 2");
 
         int clientOS = 1;
-        int clientDeviceYear = 2024;
+        int clientDeviceYear = 2023;
         System.out.println(validateDeviceAndYear(clientOS, clientDeviceYear));
 
 
         System.out.println("\n\nЗадача № 3");
 
-        int deliveryDistance = 75;
+        int deliveryDistance = 11;
         String string = calculateDeliveryDistance(deliveryDistance);
         System.out.println(string);
 
